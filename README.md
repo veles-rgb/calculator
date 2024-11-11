@@ -1,2 +1,2 @@
-# calculator
-[Project: Calculator](https://www.theodinproject.com/lessons/foundations-calculator)
+# Calculator
+Project: [Calculator](https://www.theodinproject.com/lessons/foundations-calculator)
