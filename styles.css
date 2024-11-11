@@ -71,8 +71,11 @@ button.number {
     background-color: black;
     border: 2px solid white;
 }
+ 
+.clear-btn {
+    width: 230px;
+}
 
-.ac-btn, 
 .zero {
     width: 150px;
 }
