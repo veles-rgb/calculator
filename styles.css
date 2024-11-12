@@ -61,17 +61,18 @@ button {
     color: rgb(68, 0, 128);
 }
 
+.equals,
 .operator {
     color: white;
     background-color: rgb(68, 0, 128);
 }
 
-button.number {
+.number {
     color: white;
     background-color: black;
     border: 2px solid white;
 }
- 
+
 .clear-btn {
     width: 230px;
 }
