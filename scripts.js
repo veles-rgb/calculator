@@ -1,89 +1,89 @@
-let num1 = null;
-let operator = null;
-let num2 = null;
-let currentDisplay = "";
-
+// Variables
 const display = document.querySelector(".display p");
+const numbers = document.querySelectorAll(".number");
+const operators = document.querySelectorAll(".operator");
+const equalBtn = document.querySelector(".equals");
 const clearBtn = document.querySelector(".clear-btn");
-const equalsBtn = document.querySelector(".equals");
 
-function add(num1, num2) {
-    return num1 + num2;
-};
+let firstNum = null;
+let secondNum = null;
+let operator = null; // +, −, ×, ÷
+let currentNum = "";
 
-function subtract(num1, num2) {
-    return num1 - num2;
-};
-
-function multiply(num1, num2) {
-    return num1 * num2;
-};
-
-function divide(num1, num2) {
-    return num1 / num2;
-};
-
+// Functions
 function clear() {
-    num1 = null;
+    firstNum = null;
+    secondNum = null;
     operator = null;
-    num2 = null;
-    currentDisplay = "";
+    currentNum = "";
     display.textContent = "";
+}
+
+function add(firstNum, secondNum) {
+    return firstNum + secondNum;
 };
 
-function operate(num1, operator, num2) {
+function subtract(firstNum, secondNum) {
+    return firstNum - secondNum;
+};
+
+function multiply(firstNum, secondNum) {
+    return firstNum * secondNum;
+};
+
+function divide(firstNum, secondNum) {
+    return firstNum / secondNum;
+};
+
+function operate(firstNum, operator, secondNum) {
     if (operator === "+") {
-        return add(num1, num2);
-    } else if ( operator === "−") {
-        return subtract(num1, num2);
+        return add(firstNum, secondNum);
+    } else if (operator === "−") {
+        return subtract(firstNum, secondNum);
     } else if (operator === "×") {
-        return multiply(num1, num2);
-    } else if (operator === "÷") {
-        return divide(num1, num2);
+        return multiply(firstNum, secondNum);
+    } else if ( operator === "÷") {
+        if (secondNum === 0) {
+            return "bruh...";
+        } else {
+            return divide(firstNum, secondNum);
+        }
     } else {
-        return "ERROR (invalid operator)";
+        return "ERROR - Invalid Operator";
     };
 };
 
+// Event listeners
 clearBtn.addEventListener("click", () => {
-    clear();
+    clear()
 });
 
-const numbers = document.querySelectorAll(".number").forEach(number => {
+numbers.forEach((number) => {
     number.addEventListener("click", () => {
-        if (operator === null) {
-            currentDisplay += number.textContent;
-            display.textContent = currentDisplay;
-            num1 = currentDisplay;
-        } else {
-            currentDisplay = "";
-            currentDisplay += number.textContent;
-            display.textContent = currentDisplay;
-            num2 = currentDisplay;
-        }
+        currentNum += number.textContent;
+        display.textContent = currentNum;
     });
 });
 
-const operators = document.querySelectorAll(".operator").forEach(op => {
+operators.forEach((op) => {
     op.addEventListener("click", () => {
-        currentDisplay = op.textContent;
-        display.textContent = currentDisplay;
-        operator = currentDisplay;
-    });
+        if (firstNum == null) {
+            firstNum = currentNum;
+            operator = op.textContent;
+            display.textContent = op.textContent;
+            currentNum = "";
+        } else if (secondNum === null) {
+            secondNum = currentNum;
+            currentNum = operate(+firstNum, operator, +secondNum);
+            display.textContent = currentNum
+            firstNum = currentNum
+            secondNum = null;
+            operator = op.textContent
+            currentNum = "";
+        }
+    })
 });
 
-equalsBtn.addEventListener("click", () => {
-    if (num1 !== null && operator !== null && num2 !== null) {
-        display.textContent = operate(+num1, operator, +num2);
-    } else {
-        console.log("ERROR")
-    }
+equalBtn.addEventListener("click", () => {
+    display.textContent = operate(+firstNum, operator, +currentNum);
 });
-
-/* 
-TO DO:
-Currently the calculations only work with 2 numbers.
-I need to fix it so that you can do 5 + 5 + 1 etc instead of only 5 + 5
-A solution for that would be to calculate num1 and num2 after num2 is set 
-then send it to num1 and reset num2
-*/
