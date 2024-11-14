@@ -4,6 +4,7 @@ const numbers = document.querySelectorAll(".number");
 const operators = document.querySelectorAll(".operator");
 const equalBtn = document.querySelector(".equals");
 const clearBtn = document.querySelector(".clear-btn");
+const backspaceBtn = document.querySelector(".backspace");
 
 let firstNum = null;
 let secondNum = null;
@@ -56,6 +57,11 @@ function operate(firstNum, operator, secondNum) {
 // Event listeners
 clearBtn.addEventListener("click", () => {
     clear()
+});
+
+backspaceBtn.addEventListener("click", () => {
+    currentNum = currentNum.substring(0, currentNum.length - 1)
+    display.textContent = currentNum
 });
 
 numbers.forEach((number) => {
